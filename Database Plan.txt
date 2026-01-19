@@ -1,0 +1,28 @@
+users
+- id (PK)
+- email
+- password_hash
+- age
+- height
+- weight
+- daily_calorie_goal
+- created_at
+
+foods
+- id (PK)
+- name
+- created_by
+- calories_per_serving
+- protein
+- carbs
+- fat
+- fibre
+- sodium
+- times_used
+
+entries
+- id (PK)
+- user_id (FK)
+- food_id (FK)
+- servings
+- date
