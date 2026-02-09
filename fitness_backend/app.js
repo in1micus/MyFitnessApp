@@ -1,36 +1,63 @@
+// Imports
 
-// Initialize express js
+
+// Initialize express js and database connection
 
 const express = require('express');
+const connection = require('./config/database'); // Assuming you have a db.js file that exports a database connection
+const cors = require('cors');
+
+const db = connection.promise();
 const app = express();
 
+const PORT = 3000
 
+// app.use(cors()) to allow cross-origin requests
 
-// Respond to GET request on the root route
+app.use(cors());
+
+// app.use(express.json()) to parse JSON request bodies
+
+app.use(express.json());
+
+// Require dotenv to load environment variables from .env file
+
+require('dotenv').config();
+
+// Get request for root endpoint
+
 app.get('/', (req, res) => {
-  res.send('GET request to the homepage');
+  res.send('Welcome to the My Fitness API');
 });
 
-// Middleware function parameters
-// req = request object
-// res = response object
-// next = function to pass control to the next middleware
 
-// Respond to POST request on the root route
-app.post('/', (req, res) => {
-  res.send('POST request to the homepage');
+// Get users table from database for localhoset:3000/users endpoint
+
+app.get('/users', async (req, res) => {
+  const [users] = await db.query('SELECT * FROM users');
+  res.json(users);
 });
 
-// Respond to GET request on the /about route
-app.get('/about', (req, res) => {
-  res.send('About page');
+
+// Get foods table from database for localhoset:3000/foods endpoint
+
+app.get('/foods', async (req, res) => {
+  const [foods] = await db.query('SELECT * FROM foods');
+  res.json(foods);
+});
+
+
+// Get users table from database for localhoset:3000/users endpoint
+
+app.get('/entries', async (req, res) => {
+  const [entries] = await db.query('SELECT * FROM entries');
+  res.json(entries);
 });
 
 
 // Start the server
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
-
 
