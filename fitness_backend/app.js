@@ -6,7 +6,7 @@
 const express = require('express');
 const connection = require('./config/database'); // Assuming you have a db.js file that exports a database connection
 const cors = require('cors');
-
+const users_table = require("./models/users")
 const db = connection.promise();
 const app = express();
 
@@ -30,6 +30,9 @@ app.get('/', (req, res) => {
   res.send('Welcome to the My Fitness API');
 });
 
+/*
+users_table.createUser("example1@gmail.com", "Random", 2000) // Example user creation
+*/
 
 // Get users table from database for localhoset:3000/users endpoint
 
@@ -37,7 +40,6 @@ app.get('/users', async (req, res) => {
   const [users] = await db.query('SELECT * FROM users');
   res.json(users);
 });
-
 
 // Get foods table from database for localhoset:3000/foods endpoint
 
