@@ -12,6 +12,12 @@ const app = express();
 
 const PORT = 3000
 
+// Require the route modules
+
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/usersRoutes");
+const foodRouter = require("./routes/foodRoutes");
+
 // app.use(cors()) to allow cross-origin requests
 
 app.use(cors());
@@ -24,37 +30,18 @@ app.use(express.json());
 
 require('dotenv').config();
 
-// Get request for root endpoint
+// Add routes to middleware stack
 
-app.get('/', (req, res) => {
-  res.send('Welcome to the My Fitness API');
-});
+app.use("/users", usersRouter);
+/// app.use("/foods", foodRouter);
+app.use("/", indexRouter);
 
-/*
-users_table.createUser("example1@gmail.com", "Random", 2000) // Example user creation
-*/
-
-// Get users table from database for localhoset:3000/users endpoint
-
+/* GET USERS TABLE example
 app.get('/users', async (req, res) => {
   const [users] = await db.query('SELECT * FROM users');
   res.json(users);
 });
-
-// Get foods table from database for localhoset:3000/foods endpoint
-
-app.get('/foods', async (req, res) => {
-  const [foods] = await db.query('SELECT * FROM foods');
-  res.json(foods);
-});
-
-
-// Get users table from database for localhoset:3000/users endpoint
-
-app.get('/entries', async (req, res) => {
-  const [entries] = await db.query('SELECT * FROM entries');
-  res.json(entries);
-});
+*/
 
 
 // Start the server
