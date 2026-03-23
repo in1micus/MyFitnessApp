@@ -34,7 +34,7 @@ router.post("/user/:id/delete", userController.userDeletePost);
 
 // GET request for user details
 
-router.get("user/:id/info", userController.userDetail);
+router.get("/user/:id/info", userController.userDetail);
 
 module.exports = router;
 

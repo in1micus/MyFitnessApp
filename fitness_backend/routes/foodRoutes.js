@@ -27,9 +27,9 @@ router.post("/food/:id/delete", foodController.foodCreatePost);
 
 // GET request for list of foods and details for one food
 
-router.get("/foods", foodController.foodList);
+router.get("/", foodController.foodList);
 
-router.get("food/:id/info", foodController.foodDetail);
+router.get("/food/:id/info", foodController.foodDetail);
 
 module.exports = router;
 

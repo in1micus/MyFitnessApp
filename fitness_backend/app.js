@@ -18,6 +18,9 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/usersRoutes");
 const foodRouter = require("./routes/foodRoutes");
 
+console.log("usersRouter:", usersRouter);
+console.log("foodRouter:", foodRouter);
+
 // app.use(cors()) to allow cross-origin requests
 
 app.use(cors());
@@ -33,7 +36,7 @@ require('dotenv').config();
 // Add routes to middleware stack
 
 app.use("/users", usersRouter);
-/// app.use("/foods", foodRouter);
+app.use("/foods", foodRouter);
 app.use("/", indexRouter);
 
 /* GET USERS TABLE example

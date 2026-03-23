@@ -13,7 +13,7 @@ exports.foodDetail = async (req, res, next) => {
     res.send("Not implemented yet, food id is " + req.params.id);
 }
 
-foodCreateGet = async (req, res, next) => {
+exports.foodCreateGet = async (req, res, next) => {
     res.send("Not implemented yet");
 }
 
