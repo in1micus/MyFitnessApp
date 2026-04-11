@@ -1,0 +1,12 @@
+Useful to think:
+
+Controller → handles request
+Service → runs SQL
+Database → stores data
+
+Using mysql2, this is the backend setup that I have written
+
+
+
+Can test HTTP request responses in Postman
+

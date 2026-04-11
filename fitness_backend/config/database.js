@@ -2,7 +2,6 @@
 /// MySQL Database configuration for My_fitness
 
 const mysql = require("mysql2");
-const { deleteFood } = require("../models/foods");
 
 require('dotenv').config();
 

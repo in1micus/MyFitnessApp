@@ -6,7 +6,7 @@
 const express = require('express');
 const connection = require('./config/database'); // Assuming you have a db.js file that exports a database connection
 const cors = require('cors');
-const users_table = require("./models/users")
+const users_table = require("./services/users")
 const db = connection.promise();
 const app = express();
 

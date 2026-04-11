@@ -8,28 +8,20 @@ const foodController = require("../controllers/foodController");
 
 const router = express.Router();
 
-// ROUTES //
+// RESTful API ROUTES //
 
-// GET and POST for creating/updating/deleting a food item
-
-
-router.get("/newfood", foodController.foodCreateGet);
-
-router.post("/newfood", foodController.foodCreatePost);
-
-router.get("/food/:id/update", foodController.foodCreateGet);
-
-router.post("/food/:id/update", foodController.foodCreatePost);
-
-router.get("/food/:id/delete", foodController.foodCreateGet);
-
-router.post("/food/:id/delete", foodController.foodCreatePost);
-
-// GET request for list of foods and details for one food
+// GET requests
 
 router.get("/", foodController.foodList);
+router.get("/:id", foodController.foodDetail);
 
-router.get("/food/:id/info", foodController.foodDetail);
+
+// Adding/editing requests
+
+router.post("/", foodController.createFood);
+router.put("/:id", foodController.updateFood);
+router.delete("/:id", foodController.deleteFood);
+
 
 module.exports = router;
 
