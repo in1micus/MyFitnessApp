@@ -31,7 +31,10 @@ exports.createFood = async (req, res, next) => {
         const newFoodId = await food.createFood(req.body);
         res.status(201).json({ id: newFoodId });
     } catch (err) {
-        res.status(500).json({ error: 'Failed to create food' });
+        console.error("ERROR:", err);
+
+        res.status(500).json({ error: 'Failed to create food', details: err.message});
+        
     }
 }
 

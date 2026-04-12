@@ -7,7 +7,7 @@ const express = require('express');
 const connection = require('./config/database'); // Assuming you have a db.js file that exports a database connection
 const cors = require('cors');
 const users_table = require("./services/users")
-const db = connection.promise();
+const db = require('./config/database');
 const app = express();
 
 const PORT = 3000
@@ -49,7 +49,20 @@ app.get('/users', async (req, res) => {
 
 // Start the server
 
+(async () => {
+    try {
+      await db.getConnection(); // Test the database connection
+      console.log('Database connection successful');
+    } catch (err) {
+      console.error('Database connection failed:', err);
+      process.exit(1); // Exit the application if the database connection fails
+    }
+    })();
+
+
+
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
+
 

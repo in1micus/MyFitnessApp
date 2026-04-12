@@ -15,9 +15,9 @@ exports.getFoodById = async (id) => {
 
 exports.createFood = async (food) => {
     const [result] = await db.execute(
-        `INSERT INTO foods (name, calories, protein, carbs, fat, fibre, sodium)
+        `INSERT INTO foods (name, calories_per_serving, protein, carbs, fat, fibre, sodium)
          VALUES (?, ?, ?, ?, ?, ?, ?)`,
-        [food.name, food.calories, food.protein, food.carbs, food.fat, food.fibre, food.sodium]
+        [food.name, food.calories_per_serving, food.protein, food.carbs, food.fat, food.fibre, food.sodium]
     );
     return result.insertId;
 };
@@ -25,9 +25,9 @@ exports.createFood = async (food) => {
 exports.updateFood = async (id, food) => {
     await db.execute(
         `UPDATE foods 
-         SET name=?, calories=?, protein=?, carbs=?, fat=?, fibre=?, sodium=?
+         SET name=?, calories_per_serving=?, protein=?, carbs=?, fat=?, fibre=?, sodium=?
          WHERE id=?`,
-        [food.name, food.calories, food.protein, food.carbs, food.fat, food.fibre, food.sodium, id]
+        [food.name, food.calories_per_serving, food.protein, food.carbs, food.fat, food.fibre, food.sodium, id]
     );
 };
 
