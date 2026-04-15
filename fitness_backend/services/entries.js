@@ -3,24 +3,37 @@
 
 const db = require('../config/database');
 
-exports.getAllEntries = function(callback) {
-    db.query('SELECT * FROM entries', callback);
+exports.getAllEntries = async () => {
+
+    const [rows] = await db.execute(`
+        SELECT e.*, f.name, f.calories_per_serving, f.protein, f.carbs, f.fat, f.fibre, f.sodium 
+        FROM entries e
+        JOIN foods f ON e.food_id = f.id
+        ORDER BY entry_date DESC
+    `);
+    return rows;
 };
 
-exports.getEntryById = function(id, callback) {
-    db.query('SELECT * FROM entries WHERE id = ?', [id], callback);
+exports.getEntryByID = async (id) => {
+    const [rows] = await db.execute(`
+        select * from entries where id = ?`, [id]);
+    return rows;
+
 };
 
-exports.createEntry = function(newEntry, callback) {
-    db.query('INSERT INTO entries SET ?', newEntry, callback);
+
+exports.createEntry = async ({ food_id, servings, entry_date }) => {
+    const [result] = await db.execute(
+        `INSERT INTO entries (food_id, servings, entry_date)
+         VALUES (?, ?, ?)`,
+        [food_id, servings, entry_date]
+    );
+    return result.insertId;
 };
 
-exports.updateEntry = function(id, updatedEntry, callback) {
-    db.query('UPDATE entries SET ? WHERE id = ?', [updatedEntry, id], callback);
-};
 
-exports.deleteEntry = function(id, callback) {
-    db.query('DELETE FROM entries WHERE id = ?', [id], callback);
+exports.deleteEntry = async (id) => {
+    await db.execute('DELETE FROM entries WHERE id = ?', [id]);
 };
 
 

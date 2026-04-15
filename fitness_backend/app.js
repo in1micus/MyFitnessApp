@@ -17,6 +17,7 @@ const PORT = 3000
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/usersRoutes");
 const foodRouter = require("./routes/foodRoutes");
+const entriesRouter = require("./routes/entriesRoutes");
 
 console.log("usersRouter:", usersRouter);
 console.log("foodRouter:", foodRouter);
@@ -38,6 +39,7 @@ require('dotenv').config();
 app.use("/users", usersRouter);
 app.use("/foods", foodRouter);
 app.use("/", indexRouter);
+app.use("/entries", entriesRouter);
 
 /* GET USERS TABLE example
 app.get('/users', async (req, res) => {
