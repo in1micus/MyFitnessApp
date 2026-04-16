@@ -9,7 +9,7 @@ exports.getAllEntries = async () => {
         SELECT e.*, f.name, f.calories_per_serving, f.protein, f.carbs, f.fat, f.fibre, f.sodium 
         FROM entries e
         JOIN foods f ON e.food_id = f.id
-        ORDER BY entry_date DESC
+        ORDER BY date DESC
     `);
     return rows;
 };
@@ -22,11 +22,11 @@ exports.getEntryByID = async (id) => {
 };
 
 
-exports.createEntry = async ({ food_id, servings, entry_date }) => {
+exports.createEntry = async ({ food_id, servings, date }) => {
     const [result] = await db.execute(
-        `INSERT INTO entries (food_id, servings, entry_date)
+        `INSERT INTO entries (food_id, servings, date)
          VALUES (?, ?, ?)`,
-        [food_id, servings, entry_date]
+        [food_id, servings, date]
     );
     return result.insertId;
 };
