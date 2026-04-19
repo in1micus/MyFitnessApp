@@ -46,4 +46,23 @@ exports.deleteEntry = async (req, res, next) => {
     }
 };
 
+// Daily Calories Calculation
+
+exports.dailyCalories = async (req, res) => {
+    try {
+        const date = req.query.date; // Expecting date in 'YYYY-MM-DD' format
+        console.log("Query Date:", req.query.date); // Debugging log
+        if (!date) {
+            return res.status(400).json({ error: 'Date query parameter is required' });
+        }
+        const totalCalories = await entries.getDailyCalories(date);
+        res.json(totalCalories);
+    } catch (err) {
+        console.error("ERROR:", err);
+        res.status(500).json({ error: 'Failed to calculate daily calories', details: err.message });
+
+    };
+};
+
+
 

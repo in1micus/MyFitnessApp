@@ -6,7 +6,7 @@ const db = require('../config/database');
 exports.getAllEntries = async () => {
 
     const [rows] = await db.execute(`
-        SELECT e.*, f.name, f.calories_per_serving, f.protein, f.carbs, f.fat, f.fibre, f.sodium 
+        SELECT e.id, DATE_FORMAT(e.date, "%Y-%m-%d") as date, e.food_id, f.name, e.servings, f.calories_per_serving, f.protein, f.carbs, f.fat, f.fibre, f.sodium
         FROM entries e
         JOIN foods f ON e.food_id = f.id
         ORDER BY date DESC
@@ -16,7 +16,10 @@ exports.getAllEntries = async () => {
 
 exports.getEntryByID = async (id) => {
     const [rows] = await db.execute(`
-        select * from entries where id = ?`, [id]);
+        select e.id, DATE_FORMAT(e.date, "%Y-%m-%d") as date, e.food_id, f.name, e.servings, f.calories_per_serving, f.protein, f.carbs, f.fat, f.fibre, f.sodium 
+        from entries e
+        join foods f on e.food_id = f.id
+        where e.id = ?`, [id]);
     return rows;
 
 };
@@ -36,5 +39,16 @@ exports.deleteEntry = async (id) => {
     await db.execute('DELETE FROM entries WHERE id = ?', [id]);
 };
 
+
+/// Daily Calories Calculation 
+
+exports.getDailyCalories = async (date) => {
+    const [rows] = await db.execute(`
+        SELECT SUM(f.calories_per_serving * e.servings) AS total_calories
+        FROM entries e
+        JOIN foods f ON e.food_id = f.id
+        WHERE e.date = ?`, [date]);
+    return { total_calories: rows[0].total_calories || 0 }; // Return 0 if no entries found
+};
 
 
