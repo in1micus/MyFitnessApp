@@ -6,7 +6,6 @@
 const express = require('express');
 const connection = require('./config/database'); // Assuming you have a db.js file that exports a database connection
 const cors = require('cors');
-const users_table = require("./services/users")
 const db = require('./config/database');
 const app = express();
 
@@ -15,11 +14,11 @@ const PORT = 3000
 // Require the route modules
 
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/usersRoutes");
+const authRouter = require("./routes/authRoutes");
 const foodRouter = require("./routes/foodRoutes");
 const entriesRouter = require("./routes/entriesRoutes");
 
-console.log("usersRouter:", usersRouter);
+console.log("authRouter:", authRouter);
 console.log("foodRouter:", foodRouter);
 
 // app.use(cors()) to allow cross-origin requests
@@ -36,18 +35,11 @@ require('dotenv').config();
 
 // Add routes to middleware stack
 
-app.use("/users", usersRouter);
+
 app.use("/foods", foodRouter);
 app.use("/", indexRouter);
 app.use("/entries", entriesRouter);
-
-/* GET USERS TABLE example
-app.get('/users', async (req, res) => {
-  const [users] = await db.query('SELECT * FROM users');
-  res.json(users);
-});
-*/
-
+app.use("/auth", authRouter);
 
 // Start the server
 
