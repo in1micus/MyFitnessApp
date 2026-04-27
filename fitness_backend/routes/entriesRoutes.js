@@ -5,25 +5,27 @@ const express = require("express");
 
 const entriesController = require("../controllers/entriesController");
 
+const auth = require("../middleware/authMiddleware");``
+
 const router = express.Router();
 
 // RESTful API ROUTES //
 
 
-router.get("/", entriesController.entriesList);
+router.get("/", auth, entriesController.entriesList);
 
-router.post("/", entriesController.createEntry);
+router.post("/", auth, entriesController.createEntry);
 
-router.get("/day", entriesController.dailyCalories);
+router.get("/day", auth, entriesController.dailyCalories);
 
 
 
 /// :id routes must be defined last to avoid conflicts with other routes like /day
 
 
-router.get("/:id", entriesController.entryDetail);
+router.get("/:id", auth, entriesController.entryDetail);
 
-router.delete("/:id", entriesController.deleteEntry);
+router.delete("/:id", auth, entriesController.deleteEntry);
 
 
 
