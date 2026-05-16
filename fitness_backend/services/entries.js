@@ -13,7 +13,7 @@ exports.getAllEntries = async (userId) => {
         JOIN foods f ON e.food_id = f.id
         WHERE e.user_id = ?
         ORDER BY date DESC
-    `);
+    `, [userId]);
     return rows;
 };
 

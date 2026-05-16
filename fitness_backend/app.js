@@ -18,8 +18,10 @@ const authRouter = require("./routes/authRoutes");
 const foodRouter = require("./routes/foodRoutes");
 const entriesRouter = require("./routes/entriesRoutes");
 
-console.log("authRouter:", authRouter);
-console.log("foodRouter:", foodRouter);
+// Require dotenv to load environment variables from .env file
+
+require('dotenv').config();
+
 
 // app.use(cors()) to allow cross-origin requests
 
@@ -29,9 +31,6 @@ app.use(cors());
 
 app.use(express.json());
 
-// Require dotenv to load environment variables from .env file
-
-require('dotenv').config();
 
 // Add routes to middleware stack
 
